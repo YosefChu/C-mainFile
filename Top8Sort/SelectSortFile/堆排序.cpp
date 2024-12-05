@@ -1,39 +1,45 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
-void heapify(vector<int> &arr,int i,int t)
+void heapify(vector<int> &arr, int n, int i) // 將一個無序的數組成大根堆，时间复杂度O(logn)，空间复杂度O(1)
 {
-    int lagrest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i+2;
+    int largest = i;       // 初始化最大值为根节点
+    int left = 2 * i + 1;  // 左子节点
+    int right = 2 * i + 2; // 右子节点
 
-    if (left < t && arr[left] > arr[lagrest])
+    // 如果左子节点大于根节点
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    // 如果右子节点大于最大值节点
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    // 如果最大值不是根节点
+    if (largest != i)
     {
-        lagrest = left;
-    }
-   if(right<t&&arr[right]>arr[lagrest])
-   {
-       lagrest = right;
-   }
-   if (lagrest!=i)
-   {
-       swap(arr[i], arr[lagrest]);
+        swap(arr[i], arr[largest]);
 
-       heapify(arr, lagrest, t);
-   }
-   
+        // 递归地堆化受影响的子树
+        heapify(arr, n, largest);
+    }
 }
-void heapSort(vector<int> &arr)
+void heapSort(vector<int> &arr) // 时间复杂度O(nlogn)，空间复杂度O(1)
 {
-    int a=arr.size();
-    for(int i = a/2-1;i>=0;i--)
+    int n = arr.size();
+
+    // 构建堆
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    // 一个个从堆中取出元素
+    for (int i = n - 1; i > 0; i--)
     {
-        heapify(arr,i,a);
-    }
-    for(int i = a-1;i>0;i--)
-    {
-        swap(arr[0],arr[i]);
-        heapify(arr,0,i);
+        // 移动当前根到末尾
+        swap(arr[0], arr[i]);
+
+        // 调整堆
+        heapify(arr, i, 0);
     }
 }
 void pritn(vector<int> &arr)
@@ -46,15 +52,11 @@ void pritn(vector<int> &arr)
 }
 int main()
 {
-    int a[10];
-    for (int i = 0; i < 10; i++)
-    {
-        a[i] = rand() % 100;
-    }
-    vector<int> arr(a, a + 10);
+    int a[10] = {4, 6, 3, 5, 9};
+    vector<int> arr(a, a + 5);
     pritn(arr);
     heapSort(arr);
-    cout<<"排序后"<<endl;
+    cout << "排序后" << endl;
     pritn(arr);
     return 0;
 }

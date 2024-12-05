@@ -1,0 +1,49 @@
+项目说明文档
+项目概述
+该项目实现了一个基于 myAList 数据结构的图书管理程序。图书的基本信息包括 ISBN 号、书名、作者、定价、出版发行单位和印次。程序提供以下功能：
+
+图书查找：根据 ISBN 号查找并显示书的基本信息。
+图书上架：增加新图书。
+图书下架：标记图书为已删除（懒删除）。
+图书删除：彻底删除图书。
+显示所有图书：显示当前所有图书信息。
+类和方法注释
+Book 类：存储图书的基本信息。
+
+Book()：默认构造函数。
+Book(string, string, string, double, string, int)：带参数的构造函数。
+void show()：显示图书信息。
+bool operator==(const Book &book)：重载等号运算符，用于比较图书。
+friend ostream &operator<<(ostream &os, const Book &book)：重载输出流运算符，用于输出图书信息。
+ArrayBasedList 类：抽象基类，定义顺序表的基本操作。
+
+virtual void init(int cap) = 0：初始化顺序表。
+virtual void resize(int newArraySize) = 0：调整容量，包括扩容和缩容的实现。
+virtual void insert(int i, const T &data) = 0：在特定位置插入元素。
+virtual void remove(int i) = 0：移除特定位置的元素。
+virtual void append(const T &data) = 0：在最后元素后追加新元素。
+virtual void print() = 0：遍历顺序表并输出。
+virtual void find(const T &data) = 0：输出特定元素的位置（使用顺序检索）。
+virtual T position(int i) = 0：输出特定位置的元素。
+virtual bool isEmpty() = 0：判定顺序表是否为空。
+virtual int length() = 0：获得顺序表的元素数量。
+myAlist 类：继承自 ArrayBasedList，实现顺序表的具体操作。
+
+void init(int cap)：初始化顺序表。
+void resize(int newArraySize)：调整容量，包括扩容和缩容的实现。
+void insert(int i, const T &data)：在特定位置插入元素。
+void remove(int i)：移除特定位置的元素。
+void append(const T &data)：在最后元素后追加新元素。
+void print()：遍历顺序表并输出。
+void find(const T &data)：输出特定元素的位置（使用顺序检索）。
+T position(int i)：输出特定位置的元素。
+bool isEmpty()：判定顺序表是否为空。
+int length()：获得顺序表的元素数量。
+使用说明
+根据提示输入相应的操作编号：
+输入 1 进行图书查找，输入 ISBN 号后显示图书信息。
+输入 2 进行图书上架，依次输入图书的 ISBN 号、书名、作者、定价、出版发行单位和印次。
+输入 3 进行图书下架，输入 ISBN 号后将图书标记为已删除。
+输入 4 进行图书删除，输入 ISBN 号后彻底删除图书。
+输入 5 显示所有图书信息。
+输入 6 退出程序。
